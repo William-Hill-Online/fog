@@ -690,6 +690,9 @@ module Fog
                 :name => org_name,
                 :uuid => uuid
               },
+              
+              :tags => {},
+              
               :tasks => {},
 
               :vapps => {
