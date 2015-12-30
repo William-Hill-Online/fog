@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = "fog"
-  s.version           = "1.36.0"
-  s.date              = "2015-11-16"
+  s.version           = "1.37.0"
+  s.date              = "2015-12-22"
   s.rubyforge_project = "fog"
 
   ## Make sure your summary is short. The description may be as long
@@ -69,12 +69,13 @@ Gem::Specification.new do |s|
   s.add_dependency("fog-terremark")
   s.add_dependency("fog-vmfusion")
   s.add_dependency("fog-voxel")
-  s.add_dependency("fog-vsphere", "~> 0.2")
+  s.add_dependency("fog-vsphere", ">= 0.4.0")
   s.add_dependency("fog-xenserver")
   s.add_dependency("fog-aliyun",">= 0.1.0")
 
   s.add_development_dependency("docker-api", ">= 1.13.6")
   s.add_development_dependency("fission")
+  s.add_development_dependency("mime-types")
   s.add_development_dependency("minitest")
   s.add_development_dependency("minitest-stub-const")
   s.add_development_dependency("opennebula")
