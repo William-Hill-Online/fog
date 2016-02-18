@@ -17,6 +17,31 @@ module Fog
         attribute :network_config, :aliases => :NetworkConfigSection, :squash => :NetworkConfig
         attribute :owner, :aliases => :Owner, :squash => :User
         attribute :InMaintenanceMode, :type => :boolean
+        
+        # Set the network. Assumes the vApp has 0 or 1 networks. If there's
+        # more than one, it will edit the first one
+        def network=(network)
+          # Because it comes from XML, network_config could be a Hash or an
+          # Array of Hashes - normalize it here
+          self.network_config = [network_config] if !network_config.is_a? Array
+          config = self.network_config.first || {}
+          config[:networkName] = network.name
+          config[:networkHref] = network.href
+          config[:fenceMode]   = 'bridged'
+          self.network_config[0] = config
+          save
+        end
+
+        # Currently only saves the network config
+        def save
+          params = {
+            InstantiationParams: {
+              NetworkConfig: network_config
+            }
+          }
+          response = service.post_recompose_vapp(id, params)
+          service.process_task(response.body)
+        end
 
         def vms
           requires :id

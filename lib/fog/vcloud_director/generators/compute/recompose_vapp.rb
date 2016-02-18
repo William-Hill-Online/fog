@@ -12,13 +12,15 @@ module Fog
           def generate_xml
             Nokogiri::XML::Builder.new do |xml|
               xml.RecomposeVAppParams(vapp_attrs) {
-                if has_source_items?
+                if has_instantiation_params?
                   build_vapp_instantiation_params(xml)
+                end
+                if has_source_items?
                   build_source_items(xml)
                 end
-                build_delete_items(xml)
+                build_delete_items(xml) if @configuration[:vms_to_delete]
               }
-            end.to_xml
+          end.to_xml
           end
 
           private

@@ -27,6 +27,10 @@ module Fog
             (@configuration[:source_vms] && (@configuration[:source_vms].size > 0)) || 
             (@configuration[:source_templates] && (@configuration[:source_templates].size > 0))
           end
+          
+          def has_instantiation_params?
+            @configuration.key? :InstantiationParams
+          end
 
           def build_vapp_instantiation_params(xml)
             xml.Description @configuration[:Description]
